@@ -8,7 +8,6 @@ HEIGHT=500
 WIDTH=500
 
 
-
 class MasCine(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
