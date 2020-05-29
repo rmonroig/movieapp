@@ -11,14 +11,14 @@ import pathlib
 import time
 import requests
 from bs4 import BeautifulSoup
-from api_queries.utils_filmaffinity import auxfuncs_requests as aux_req
+from utils import auxfuncs_requests as aux_req
 import asyncio
 from proxybroker import Broker
 import random
 
 
 #Get users ids
-with open('data/filmaffinity_data/user_information.csv', "r") as f:
+with open('data/user_information.csv', "r") as f:
     data_csv=csv.reader(f)
     lst_movies=list(data_csv)
 lst_user=[user[0] for user in lst_movies]
@@ -76,11 +76,15 @@ def get_votes_user(queue, user):
 
 
 
-
-
 if __name__ == '__main__':
     print('start')
+    
 
+
+
+
+
+'''
     with Manager() as manager:
         queue=manager.list()
         processes=[]
@@ -99,7 +103,7 @@ if __name__ == '__main__':
         with open("data/filmaffinity_data/vote_user.csv", "w", newline='') as f:
             wr = csv.writer(f)
             wr.writerows(final_data)
-
+'''
 '''
 
     pool = multiprocessing.Pool(8)
