@@ -14,7 +14,7 @@ def chrome_browser(download_dir=''):
       "safebrowsing.enabled": True
     })
 
-    chromedriver="C:\\Users\\Rafael Monroig\\git\\z_drivers\\chromedriver"
+    chromedriver=r"C:\git\recomendador\data\chromedriver.exe"
     browser = webdriver.Chrome(chromedriver, chrome_options=chromeOptions)
 
     return browser
