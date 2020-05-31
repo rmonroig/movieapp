@@ -1,4 +1,4 @@
 .vscode/settings.json
 __pycache__/
-data/vote_user.csv
+data/
 .vscode/launch.json
