@@ -12,18 +12,7 @@ from bs4 import BeautifulSoup
 #OWN MODULES
 from utils.auxfuncs_requests import setting_headers
 from utils.browsers_selenium import chrome_browser
-import flixable_informationlists as flixinfo
-
-with open("data/NetflixViewingHistory.csv", mode='r', encoding='UTF-8') as f:
-    all_movies=csv.reader(f, delimiter=',')
-    all_shows_netflix=[r[0] for r in all_movies]
-    shows_netflix=[]
-    for show in all_shows_netflix:
-        if 'Temporada' in show:
-            shows_netflix.append(show.split(':')[0])
-        else:
-            shows_netflix.append(show)
-    shows_netflix=list(set(shows_netflix))
+import definitions as flixinfo
 
 
 class Flixable():
@@ -39,6 +28,7 @@ class Flixable():
         self.url_string=self.url_encoding()
         self.npages=npages
         self.soup=self.query_recent_netflix()
+        self.shows_netflix=self.get_watched_netflix_movies()
 
     def url_encoding(self):
         url=f'{self.end_point}?min-rating={self.min_rating}&min-year={self.ano_minimo}&max-year={self.ano_maximo}&order={self.order}#filterForm'
@@ -82,6 +72,18 @@ class Flixable():
         #Assign attribute
         return html_source
 
+    def get_watched_netflix_movies(self):
+        with open("data/NetflixViewingHistory.csv", mode='r', encoding='UTF-8') as f:
+            all_movies=csv.reader(f, delimiter=',')
+            all_shows_netflix=[r[0] for r in all_movies]
+            shows_netflix=[]
+            for show in all_shows_netflix:
+                if 'Temporada' in show:
+                    shows_netflix.append(show.split(':')[0])
+                else:
+                    shows_netflix.append(show)
+        return list(set(shows_netflix))
+
     def get_allmovies(self):
         movies_flixable=[]
         for idx, el in enumerate(self.soup.find_all("div", class_="col-sm-6 col-lg-3 item")):
@@ -93,8 +95,7 @@ class Flixable():
     def get_mynewmovies(self):
         
         movies_flixable=self.get_allmovies()
-        print(len(movies_flixable))
-        return [movie for movie in movies_flixable if movie not in shows_netflix]
+        return [movie for movie in movies_flixable if movie not in self.shows_netflix]
 
 
 flixable=Flixable(min_rating=60, npages=1)
