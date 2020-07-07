@@ -14,7 +14,7 @@ class MasCine(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
         self.title("Mas Cine")
         self.minsize(width=WIDTH, height=HEIGHT)
-        self.wm_iconbitmap("images/logo_1.ico")
+        self.wm_iconbitmap("@images/logo.xbm")
 
         #Canvas
         canvas=tk.Canvas(self, width=WIDTH, height=HEIGHT)
